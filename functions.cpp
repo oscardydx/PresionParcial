@@ -1,4 +1,4 @@
-#include "declarations.hpp"
+#include "declarations.h"
 //Incializar posiciones
 void init(particles & position, int seed){
     int N = position.size();
