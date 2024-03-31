@@ -1,4 +1,4 @@
-#include "declarations.hpp"
+#include "declarations.h"
 
 int main(){
     int Nmol = 400;
@@ -6,17 +6,17 @@ int main(){
     int Nsteps = 100000;
     int SEED = 0;
 
-    particles prueba1;
-    prueba1.resize(Nmol);
+    particles simul;
+    simul.resize(Nmol);
 
     std::vector<int> Counts(LatSize);
 
     //Semilla aleatoria 
     srand(time(NULL));
-    init(prueba1, SEED);
+    init(simul, SEED); 
     //Calcular cuentas
-    grid_count(Counts, prueba1);
-    //update(prueba1, Nsteps);
+    grid_count(Counts, simul);
+    //update(simul, Nsteps);
 
     std::ofstream outfile;
     outfile.open("entropy.txt");
@@ -25,8 +25,8 @@ int main(){
 
         outfile << t << "\t" << Entropy << "\n";
 
-        update(prueba1);
-        grid_count(Counts, prueba1);
+        update(simul);
+        grid_count(Counts, simul);
     }
     outfile.close();
 

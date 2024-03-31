@@ -1,11 +1,10 @@
-#pragma once
 #include <iostream>
 #include <cmath>
 #include <vector>
 #include <fstream>
 #include <ctime>
 #include <random>
-#include "particle.hpp"
+#include "particle.h"
 
 typedef std::vector<Particle> particles;
 
