@@ -14,16 +14,15 @@ int main(){
     //Semilla aleatoria 
     srand(time(NULL));
     init(simul, SEED); 
-    //Calcular cuentas
+
+    //Calcular cuentas iniciales
     grid_count(Counts, simul);
-    //update(simul, Nsteps);
 
     std::ofstream outfile;
     outfile.open("entropy.txt");
     for(int t = 0; t < Nsteps; t++){
-        double Entropy = entropy(Counts, Nmol);
 
-        outfile << t << "\t" << Entropy << "\n";
+        outfile << t << "\t" << entropy(Counts, Nmol) << "\n";
 
         update(simul);
         grid_count(Counts, simul);
