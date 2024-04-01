@@ -1,6 +1,6 @@
 SHELL:=/bin/bash
 
-all: entropy.txt
+all: entropia_tiempo.png
 
 %.x: %.o entropy.o functions.o
 	g++ $^ -o $@
@@ -11,5 +11,8 @@ all: entropy.txt
 %.txt: %.x
 	./entropy.x
 
+entropia_tiempo.png: entropy.py entropy.txt
+	python entropy.py
+
 clean:
-	rm -f *.o *.x
+	rm -f *.o *.x *.png entropy.txt
