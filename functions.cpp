@@ -16,7 +16,7 @@ void update(particles & position){
     int N = position.size();
 
     for(int i = 0; i < N; i++){
-        position[i].move();
+        position[i].move();    
     }
 }
 
@@ -35,7 +35,9 @@ void grid_count(std::vector<int> & counts, particles position){
         int xpos = static_cast<int>(position[i].x/Width);
         int ypos = static_cast<int>(position[i].y/Height);
 
-        counts[xpos*Ngrids+ypos] += 1;
+        if(xpos >= 0 && xpos < Ngrids && ypos >= 0 && ypos < Ngrids){
+            counts[ xpos * Ngrids + ypos ] += 1;
+        }
     }
 }
 
@@ -49,7 +51,6 @@ double entropy(std::vector<int> counts, int nparticles){
         for(int jj = 0; jj < Ngrids; jj++){
             prob[ii * Ngrids + jj] = static_cast<double>(counts[ii * Ngrids + jj])/nparticles;
         }
-
     }
     //Calcular la Entropia
     for(int ii = 0; ii < Ngrids; ii++){
