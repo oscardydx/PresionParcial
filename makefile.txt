@@ -1,0 +1,15 @@
+SHELL:=/bin/bash
+
+all: entropy.txt
+
+%.x: %.o entropy.o functions.o
+	g++ $^ -o $@
+
+%.o: %.cpp
+	g++ -c $<
+
+%.txt: %.x
+	./entropy.x
+
+clean:
+	rm -f *.o *.x
