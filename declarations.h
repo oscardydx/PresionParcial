@@ -8,7 +8,7 @@
 
 typedef std::vector<Particle> particles;
 
-void init(particles & position, int seed);
-void update(particles & position);
-void grid_count(std::vector<int> & counts, particles position);
+void init(particles & position, int seed, double limit);
+void update(particles & position, double limit);
+void grid_count(std::vector<int> & counts, particles position, double limit);
 double entropy(std::vector<int> counts, int nparticles);

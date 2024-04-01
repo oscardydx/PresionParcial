@@ -1,32 +1,33 @@
 #include "declarations.h"
 //Incializar posiciones
-void init(particles & position, int seed){
-    int N = position.size();
+void init(particles & position, int seed, double limit){
+    int Nparticles = position.size();
     
     std::mt19937 generator(seed);
     std::uniform_real_distribution<double> distribution(0.1, 0.9);
-    for(int i = 0; i < N; i++){
-        position[i].x = 45 + 10*distribution(generator);
-        position[i].y = 45 + 10*distribution(generator);
+    for(int i = 0; i < Nparticles; i++){
+        //Gota de 10*10 centrada en la mitad del contenedor
+        position[i].x = (limit/2) - 5 + 10*distribution(generator);
+        position[i].y = (limit/2) - 5 + 10*distribution(generator);
     }
 }
 
 //actualizar posiciones - Simulacion
-void update(particles & position){
-    int N = position.size();
+void update(particles & position, double limit){
+    int Nparticles = position.size();
 
-    for(int i = 0; i < N; i++){
-        position[i].move();    
+    for(int i = 0; i < Nparticles; i++){
+        position[i].move(limit, limit);    
     }
 }
 
 
-void grid_count(std::vector<int> & counts, particles position){
+void grid_count(std::vector<int> & counts, particles position, double limit){
     int Nparticles = position.size();
     int Ngrids = std::sqrt(counts.size());
 
-    double Width = static_cast<double>(100/Ngrids);
-    double Height = static_cast<double>(100/Ngrids);
+    double Width = static_cast<double>(limit/Ngrids);
+    double Height = static_cast<double>(limit/Ngrids);
 
     //Reestablecer # de cuentas
     counts.assign(counts.size(), 0);

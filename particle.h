@@ -8,12 +8,12 @@ struct Particle{
     //Particula valida dentro de la simulacion
     //bool valid = true;
 
-    void move(){
+    void move(double xmax, double ymax){
         int direction = rand() % 4;
         switch(direction){
             //Abajo
             case 0:
-                if (y >= 0){
+                if (y > 0){
                     y -= 1;
                 }else{
                     y += 1;
@@ -22,7 +22,7 @@ struct Particle{
 
             //Arriba
             case 1:
-                if (y <= 100){
+                if (y < ymax){
                     y += 1;
                 }else{
                     y -= 1;
@@ -31,7 +31,7 @@ struct Particle{
 
             //Izquierda
             case 2:
-                if (x >= 0){
+                if (x > 0){
                     x -= 1;
                 }else{
                     x += 1;
@@ -40,7 +40,7 @@ struct Particle{
 
             //Derecha
             case 3:
-                if (x <= 100){
+                if (x < xmax){
                     x += 1;
                 }else{
                     x -= 1;
