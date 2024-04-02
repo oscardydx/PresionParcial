@@ -64,3 +64,22 @@ double entropy(std::vector<int> counts, int nparticles){
 
     return -entropy;
 }
+
+double encreaseEntropy(particles position){
+    double Distancia = 0.0;
+    
+    int Nparticles = position.size();
+
+    double X_=0.0;
+    double Y_=0.0;
+    
+    for(int i = 0; i < Nparticles; i++){
+    
+        X_=position[i].x ;
+        Y_=position[i].y ;
+
+        Distancia+=(X_*X_)+(Y_*Y_);
+    }
+
+    return std::sqrt(Distancia/Nparticles);
+}
