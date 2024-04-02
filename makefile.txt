@@ -15,8 +15,8 @@ entropia_tiempo.png: entropy.py entropy.txt
 	python entropy.py
 
 
-entropia_tamaño.png: increaseEntropy.py increseEntropy.txt
-	python increaseEntropy.py
+tamaño_tiempo.png: entropy.py drop_size.txt
+	python entropy.py
 
 clean:
-	rm -f *.o *.x *.png entropy.txt increseEntropy.txt
+	rm -f *.o *.x *.png entropy.txt drop_size.txt

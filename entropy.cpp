@@ -40,7 +40,7 @@ int main(){
     std::ofstream outfile1;
     outfile1.open("entropy.txt");
     std::ofstream outfile2;
-    outfile2.open("increseEntropy.txt");
+    outfile2.open("drop_size.txt");
     std::ofstream outfile3;
     outfile3.open("counts.txt");
 

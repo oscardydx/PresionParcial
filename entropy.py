@@ -1,34 +1,58 @@
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Listas para almacenar el tiempo y la entropía
-tiempo = []
-entropia = []
+# Get entropy data
+Entropy_data = np.genfromtxt("entropy.txt", delimiter = "\t")
 
-# Leer los datos del archivo entropy.txt
-with open('entropy.txt', 'r') as file:
-    for line in file:
-        # Dividir la línea en valores individuales utilizando tabulaciones como delimitador
-        values = line.strip().split('\t')
-        
-        # Verificar si hay suficientes valores en la línea
-        if len(values) == 2:
-            # Intentar convertir los valores a números flotantes
-            try:
-                t, s = map(float, values)
-                tiempo.append(int(t))  # Convertir el tiempo a entero
-                entropia.append(s)
-            except ValueError:
-                # Ignorar la línea si no se pueden convertir los valores a números flotantes
-                pass
+# Array to store time and entropy
+time = Entropy_data[:,0]
+entropy = Entropy_data[:,1]
 
-# Graficar la entropía en función del tiempo
-plt.plot(tiempo, entropia)
+# Plotting entropy as a function of time
+plt.figure()
+plt.plot(time, entropy)
 plt.xlabel('Tiempo')
 plt.ylabel('Entropía')
 plt.title('Entropía en función del tiempo')
 plt.grid(True)
 
-# Guardar la gráfica en un archivo .png
-plt.savefig('entropia_tiempo.png')
+# Save plot as a .png file
+plt.savefig('Entropía_tiempo.png')
 
 
+# Get drop size data
+Drop_size_data = np.genfromtxt("drop_size.txt", delimiter = "\t")
+
+# Array to store time and drop size
+time = Drop_size_data[:,0]
+drop_size = Drop_size_data[:,1]
+
+# Plotting drop size as a function of time
+plt.figure()
+plt.plot(time , drop_size)
+plt.xlabel('Tiempo')
+plt.ylabel('tamaño de gota')
+plt.title('Tamaño de gota en el tiempo')
+plt.grid(True)
+
+# Save plot as a .png file
+plt.savefig('tamaño_tiempo.png')
+
+
+# Get leak data
+Leak_data = np.genfromtxt("counts.txt", delimiter = "\t")
+
+# Array to store time and particle count
+time = Leak_data[:,0]
+counts = Leak_data[:,1]
+
+# Plotting drop size as a function of time
+plt.figure()
+plt.plot(time , counts)
+plt.xlabel('Tiempo')
+plt.ylabel('# de párticulas')
+plt.title('# de párticulas en el tiempo')
+plt.grid(True)
+
+# Save plot as a .png file
+plt.savefig('counts.png')
