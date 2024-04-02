@@ -53,7 +53,8 @@ struct Particle{
 
     //Mover la particula con un agujero en el contenedor
     void move_leak(double xmax, double ymax){
-        // Verificar si la partícula ya salió
+
+        // si la particula esta afuera no hacer nada
         if (out) {
             return;
         }
@@ -62,11 +63,11 @@ struct Particle{
         switch(direction){
             //Abajo
             case 0:
-                
-                if (y > 1 && (x < 30 || x > 70)) { 
+                //Sacar la particula si se encuentra en un hueco de 10 unidades en la mitad del borde inferior
+                if (y > 0) { 
                     y -= 1;
-                    // Verificar si la partícula ha alcanzado la parte inferior del hueco
-                    if (y < 0) {
+                    // Verificar si la particula salio del limite
+                    if (y < 0 && x > (xmax/2)-5 && x < (xmax/2)+5) {
                         out = true;
                     }
                 } else {
