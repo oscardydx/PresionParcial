@@ -65,18 +65,23 @@ double entropy(std::vector<int> counts, int nparticles){
     return -entropy;
 }
 
-double encreaseEntropy(particles position){
+double drop_size(particles position, double limit){
     double Distancia = 0.0;
     
     int Nparticles = position.size();
+
+    //Posicion del centro del contenedor
+    double x0 = limit/2;
+    double y0 = limit/2;
 
     double X_=0.0;
     double Y_=0.0;
     
     for(int i = 0; i < Nparticles; i++){
-    
-        X_=position[i].x ;
-        Y_=position[i].y ;
+        
+        //posicion respecto al centro de la taza
+        X_=position[i].x-x0;
+        Y_=position[i].y-y0;
 
         Distancia+=(X_*X_)+(Y_*Y_);
     }

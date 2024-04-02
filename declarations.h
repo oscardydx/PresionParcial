@@ -12,4 +12,4 @@ void init(particles & position, int seed, double limit);
 void update(particles & position, double limit);
 void grid_count(std::vector<int> & counts, particles position, double limit);
 double entropy(std::vector<int> counts, int nparticles);
-double encreaseEntropy(particles position);
+double drop_size(particles position, double limit);

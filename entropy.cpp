@@ -1,9 +1,9 @@
 #include "declarations.h"
 
 int main(){
-    int Nmol = 400;
-    int LatSize = 20;
-    int Nsteps = 100000;
+    int Nmol = 500;
+    int LatSize = 200;
+    int Nsteps = 50000;
     int SEED = 0;
 
     int GridSize = 64;
@@ -27,7 +27,7 @@ int main(){
     std::ofstream outfile2;
     outfile2.open("increseEntropy.txt");
 
-    for(int t = 0; t < 5000; t++){
+    for(int t = 0; t < Nsteps; t++){
 
         outfile << t << "\t" << entropy(Counts, Nmol) << "\n";
 
@@ -36,7 +36,7 @@ int main(){
 
         //Obtener obtener la distancia
         
-        Distancia=encreaseEntropy(simul);
+        Distancia=drop_size(simul, LatSize);
         //Se agrega al archivo
         outfile2 << t << "\t" << Distancia << "\n";
         
