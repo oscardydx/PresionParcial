@@ -2,14 +2,17 @@
 
 int main(){
     int Nmol = 500;
-    int LatSize = 50;
-    int Nsteps = 10000;
+    double LatSize = 100;
+    int Nsteps = 40000;
     int SEED = 0;
     
     //# of grids for entropy computaion
     const int GridSize = 64;
     //Step size for random walk
     const double Step = 1.0;
+    //Equilibrium entropy for 64 estates
+    const double MaxEntropy = 4.0;
+
 
     //Variables to compute in time
     double Entropy = 0.0;
@@ -69,6 +72,40 @@ int main(){
     outfile1.close();
     outfile2.close();
     outfile3.close();
+
+    // Latice sice vector
+    std::vector<double> LatSize_vec = {20, 40, 60, 80, 100, 120, 140, 160, 180, 200};
+
+    std::ofstream outfile4;
+    outfile4.open("latsize.txt");
+    // Perform simulation for diferent Lat sizes
+    for(int ii = 0; ii < LatSize_vec.size(); ii++){
+
+        init(simul, SEED, LatSize_vec[ii]);
+        //Time loop
+        for(int t = 0; t < Nsteps; t++){
+            //Compute counts
+            grid_count(Counts, simul, LatSize_vec[ii]);
+
+            //Compute entropy
+            Entropy = entropy(Counts, Nmol);
+
+            //Update positions
+            update(simul, LatSize_vec[ii], Step);
+            
+            //Check if equilibrium has been reached
+            if(Entropy >= MaxEntropy){
+                outfile4 << LatSize_vec[ii] << "\t" << t << "\n";
+                break;
+            }
+
+            // Dentro del bucle de tiempo
+            if (t == Nsteps - 1) { // Si llegamos al final del bucle de tiempo
+                std::cout << "El equilibrio no se alcanzó para el tamaño del contenedor: " << LatSize_vec[ii] << std::endl;
+            }
+        }
+    }
+    outfile4.close();
 
     return 0;
 }
