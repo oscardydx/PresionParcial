@@ -7,7 +7,7 @@ struct Particle{
     double y = 0;
 
     //Verificar particula dentro de los limites
-    bool out = false; 
+    bool valid = true; 
 
     //Mover la particula verificando que no salga de los limites 
     void move(double xmax, double ymax){
@@ -57,7 +57,7 @@ struct Particle{
     void move_leak(double xmax, double ymax){
 
         // si la particula esta afuera no hacer nada
-        if (out) {
+        if (!valid) {
             return;
         }
 
@@ -72,7 +72,7 @@ struct Particle{
                     y -= step;
                     // Verificar si la particula salio del limite
                     if (y < 0 && x > (xmax/2)-5 && x < (xmax/2)+5) {
-                        out = true;
+                        valid = false;
                     }
                 } else {
                     y += step;

@@ -21,6 +21,15 @@ void update(particles & position, double limit){
     }
 }
 
+//udate positions - leak simulation
+void update_leak(particles & position, double limit){
+    int Nparticles = position.size();
+
+    for(int i = 0; i < Nparticles; i++){
+        position[i].move_leak(limit, limit);    
+    }
+}
+
 
 void grid_count(std::vector<int> & counts, particles position, double limit){
     int Nparticles = position.size();
@@ -87,4 +96,20 @@ double drop_size(particles position, double limit){
     }
 
     return std::sqrt(Distancia/Nparticles);
+}
+
+int particle_leak_count(particles & position, double limit){
+    int Nparticles = position.size();
+
+    //Reiniciar cuenta de particulas
+    int counts = 0;
+
+    //Contar particulas validas
+    for(int i = 0; i < Nparticles; i++){
+        if(position[i].valid){
+            counts += 1;
+        }   
+    }
+  
+    return counts;
 }
