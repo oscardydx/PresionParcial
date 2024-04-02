@@ -10,9 +10,8 @@ struct Particle{
     bool valid = true; 
 
     //Mover la particula verificando que no salga de los limites 
-    void move(double xmax, double ymax){
+    void move(double size, double step){
         int direction = rand() % 4;
-        double step = 1;
 
         switch(direction){
             //Abajo
@@ -26,7 +25,7 @@ struct Particle{
 
             //Arriba
             case 1:
-                if (y < ymax-step){
+                if (y < size-step){
                     y += step;
                 }else{
                     y -= step;
@@ -44,7 +43,7 @@ struct Particle{
 
             //Derecha
             case 3:
-                if (x < xmax-step){
+                if (x < size-step){
                     x += step;
                 }else{
                     x -= step;
@@ -54,15 +53,13 @@ struct Particle{
     }
 
     //Mover la particula con un agujero en el contenedor
-    void move_leak(double xmax, double ymax){
+    void move_leak(double size, double step){
 
         // si la particula esta afuera no hacer nada
         if (!valid) {
             return;
         }
-
         int direction = rand() % 4;
-        double step = 1;
 
         switch(direction){
             //Abajo
@@ -71,7 +68,7 @@ struct Particle{
                 if (y > 0) { 
                     y -= step;
                     // Verificar si la particula salio del limite
-                    if (y < 0 && x > (xmax/2)-5 && x < (xmax/2)+5) {
+                    if (y < 0 && (size/2)-5 && (size/2)+5) {
                         valid = false;
                     }
                 } else {
@@ -81,7 +78,7 @@ struct Particle{
 
             //Arriba
             case 1:
-                if (y < ymax-step){
+                if (y < size-step){
                     y += step;
                 }else{
                     y -= step;
@@ -99,7 +96,7 @@ struct Particle{
 
             //Derecha
             case 3:
-                if (x < xmax-step){
+                if (x < size-step){
                     x += step;
                 }else{
                     x -= step;

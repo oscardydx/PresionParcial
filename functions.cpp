@@ -13,20 +13,20 @@ void init(particles & position, int seed, double limit){
 }
 
 //actualizar posiciones - Simulacion
-void update(particles & position, double limit){
+void update(particles & position, double limit, double step){
     int Nparticles = position.size();
 
     for(int i = 0; i < Nparticles; i++){
-        position[i].move(limit, limit);    
+        position[i].move(limit, step);    
     }
 }
 
 //udate positions - leak simulation
-void update_leak(particles & position, double limit){
+void update_leak(particles & position, double limit, double step){
     int Nparticles = position.size();
 
     for(int i = 0; i < Nparticles; i++){
-        position[i].move_leak(limit, limit);    
+        position[i].move_leak(limit, step);    
     }
 }
 
