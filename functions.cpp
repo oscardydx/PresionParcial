@@ -1,18 +1,18 @@
 #include "declarations.h"
-//Incializar posiciones
+//Initialize particles
 void init(particles & position, int seed, double limit){
     int Nparticles = position.size();
     
     std::mt19937 generator(seed);
     std::uniform_real_distribution<double> distribution(0.1, 0.9);
     for(int i = 0; i < Nparticles; i++){
-        //Gota de 10*10 centrada en la mitad del contenedor
+        //10*10 Drop in the midle of the container
         position[i].x = (limit/2) - 5 + 10*distribution(generator);
         position[i].y = (limit/2) - 5 + 10*distribution(generator);
     }
 }
 
-//actualizar posiciones - Simulacion
+//Update positions - normal simulation
 void update(particles & position, double limit, double step){
     int Nparticles = position.size();
 
@@ -21,7 +21,7 @@ void update(particles & position, double limit, double step){
     }
 }
 
-//udate positions - leak simulation
+//Update positions - leak simulation
 void update_leak(particles & position, double limit, double step){
     int Nparticles = position.size();
 
@@ -30,39 +30,47 @@ void update_leak(particles & position, double limit, double step){
     }
 }
 
-
+//Count number of particles at a square stored in a grid_count matrix
 void grid_count(std::vector<int> & counts, particles position, double limit){
     int Nparticles = position.size();
     int Ngrids = std::sqrt(counts.size());
 
+    //Square dimensions
     double Width = static_cast<double>(limit/Ngrids);
     double Height = static_cast<double>(limit/Ngrids);
 
-    //Reestablecer # de cuentas
+    //Reestar count 
     counts.assign(counts.size(), 0);
 
-    for(int i = 0; i < Nparticles; i++){
-        int xpos = static_cast<int>(position[i].x/Width);
-        int ypos = static_cast<int>(position[i].y/Height);
+    // Particle components at the (i, j) grid matrix positions
+    int ipos = 0;
+    int jpos = 0;
 
-        if(xpos >= 0 && xpos < Ngrids && ypos >= 0 && ypos < Ngrids){
-            counts[ xpos * Ngrids + ypos ] += 1;
+    for(int i = 0; i < Nparticles; i++){
+        ipos = static_cast<int>(position[i].x/Width);
+        jpos = static_cast<int>(position[i].y/Height);
+        
+        //Check that the particle is inside limits
+        if(ipos >= 0 && ipos < Ngrids && jpos >= 0 && jpos < Ngrids){
+            counts[ ipos * Ngrids + jpos ] += 1;
         }
     }
 }
 
+//Entropy calculation based on the grid_count matrix 
 double entropy(std::vector<int> counts, int nparticles){
     double entropy = 0.0;
     int Ngrids = std::sqrt(counts.size());
     std::vector<double> prob(Ngrids*Ngrids, 0.0);
     
-    //Calcular la probabilidad
+    //Probability of finding a particle at any position in the grid 
     for(int ii = 0; ii < Ngrids; ii++){
         for(int jj = 0; jj < Ngrids; jj++){
             prob[ii * Ngrids + jj] = static_cast<double>(counts[ii * Ngrids + jj])/nparticles;
         }
     }
-    //Calcular la Entropia
+
+    //Entropy computation
     for(int ii = 0; ii < Ngrids; ii++){
         for(int jj = 0; jj < Ngrids; jj++){
             if(prob[ii*Ngrids + jj] > 0){
@@ -74,9 +82,9 @@ double entropy(std::vector<int> counts, int nparticles){
     return -entropy;
 }
 
+//Compute drop size for a particle configuration
 double drop_size(particles position, double limit){
-    double Distancia = 0.0;
-    
+    double Distance = 0.0;
     int Nparticles = position.size();
 
     //Posicion del centro del contenedor
@@ -87,24 +95,24 @@ double drop_size(particles position, double limit){
     double Y_=0.0;
     
     for(int i = 0; i < Nparticles; i++){
-        
-        //posicion respecto al centro de la taza
+        //Particle position relative to the center of the container
         X_=position[i].x-x0;
         Y_=position[i].y-y0;
 
-        Distancia+=(X_*X_)+(Y_*Y_);
+        Distance+=(X_*X_)+(Y_*Y_);
     }
 
-    return std::sqrt(Distancia/Nparticles);
+    return std::sqrt(Distance/Nparticles);
 }
 
+//Compute # of particles inside the container for leak simulation
 int particle_leak_count(particles & position, double limit){
     int Nparticles = position.size();
 
-    //Reiniciar cuenta de particulas
+    //Reestart particle count 
     int counts = 0;
 
-    //Contar particulas validas
+    //Count particles inside the container
     for(int i = 0; i < Nparticles; i++){
         if(position[i].valid){
             counts += 1;

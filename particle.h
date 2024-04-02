@@ -2,19 +2,19 @@
 #include <cstdlib>
 
 struct Particle{
-    //Posiciones de la particula
+    //Particle positions
     double x = 0;
     double y = 0;
 
-    //Verificar particula dentro de los limites
+    //To check if the particle is inside the limits 
     bool valid = true; 
 
-    //Mover la particula verificando que no salga de los limites 
+    //Move particle inside the limits 
     void move(double size, double step){
         int direction = rand() % 4;
 
         switch(direction){
-            //Abajo
+            //Down
             case 0:
                 if (y > step){
                     y -= step;
@@ -23,7 +23,7 @@ struct Particle{
                 }
                 break;
 
-            //Arriba
+            //Up
             case 1:
                 if (y < size-step){
                     y += step;
@@ -32,7 +32,7 @@ struct Particle{
                 }
                 break;
 
-            //Izquierda
+            //Left
             case 2:
                 if (x > step){
                     x -= step;
@@ -41,7 +41,7 @@ struct Particle{
                 }
                 break;
 
-            //Derecha
+            //Right
             case 3:
                 if (x < size-step){
                     x += step;
@@ -52,22 +52,21 @@ struct Particle{
         }
     }
 
-    //Mover la particula con un agujero en el contenedor
+    //Move particle in leak simulation
     void move_leak(double size, double step){
 
-        // si la particula esta afuera no hacer nada
+        //Check if the particle is out of the container
         if (!valid) {
             return;
         }
         int direction = rand() % 4;
 
         switch(direction){
-            //Abajo
+            //Down
             case 0:
-                //Sacar la particula si se encuentra en un hueco de 10 unidades en la mitad del borde inferior
                 if (y > 0) { 
                     y -= step;
-                    // Verificar si la particula salio del limite
+                    //Remove the particle if it is in a gap of 10 units in the middle of the lower edge
                     if (y < 0 && (size/2)-5 && (size/2)+5) {
                         valid = false;
                     }
@@ -76,7 +75,7 @@ struct Particle{
                 }
                 break;
 
-            //Arriba
+            //Up
             case 1:
                 if (y < size-step){
                     y += step;
@@ -85,7 +84,7 @@ struct Particle{
                 }
                 break;
 
-            //Izquierda
+            //Left
             case 2:
                 if (x > step){
                     x -= step;
@@ -94,7 +93,7 @@ struct Particle{
                 }
                 break;
 
-            //Derecha
+            //Right
             case 3:
                 if (x < size-step){
                     x += step;

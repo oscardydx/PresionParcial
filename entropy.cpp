@@ -11,33 +11,36 @@ int main(){
     //Step size for random walk
     const double Step = 1.0;
 
+    //Variables to compute in time
     double Entropy = 0.0;
     double Distancia = 0.0;
     int PCounts = 0;
 
+    //Vector of particles for normal simulation
     particles simul;
     simul.resize(Nmol);
 
+    //Vector of particles for leak simulation
     particles simul_leak;
     simul_leak.resize(Nmol);
 
+    //1D matrix for grid count
     std::vector<int> Counts(GridSize);
 
-    //Semilla aleatoria 
+    //Random seed for random walk 
     srand(time(NULL));
 
-    //Iinicializar particulas 
+    //Initialize particles 
     init(simul, SEED, LatSize); 
 
-    //Inicializar pariticulas con leaks
+    //Initialize leak particles
     init(simul_leak, SEED, LatSize);
 
+    //Files to storage data
     std::ofstream outfile1;
     outfile1.open("entropy.txt");
-
     std::ofstream outfile2;
     outfile2.open("increseEntropy.txt");
-
     std::ofstream outfile3;
     outfile3.open("counts.txt");
 
@@ -49,18 +52,18 @@ int main(){
         Entropy = entropy(Counts, Nmol);
         outfile1 << t << "\t" << Entropy << "\n";
 
-        //Obtener obtener tamano
+        //Compute drop size
         Distancia=drop_size(simul, LatSize);
         outfile2 << t << "\t" << Distancia << "\n";
 
-        //Actualizar posiciones
+        //Update positions
         update(simul, LatSize, Step);
 
-        //Obtener cuenta de particulas en simulacion con un agujero
+        //Compute particle count in leak simulation
         PCounts = particle_leak_count(simul_leak, LatSize);
         outfile3 << t << "\t" << PCounts << "\n";
 
-        //Actualizar posiciones    
+        //Update positions in leak simulation    
         update_leak(simul_leak, LatSize, Step);
     }
     outfile1.close();
