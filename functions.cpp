@@ -42,7 +42,7 @@ void grid_count(std::vector<int> & counts, particles position, double limit){
     //Reestar count 
     counts.assign(counts.size(), 0);
 
-    // Particle components at the (i, j) grid matrix positions
+    //Particle components at the (i, j) grid matrix positions
     int ipos = 0;
     int jpos = 0;
 

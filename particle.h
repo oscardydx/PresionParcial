@@ -55,10 +55,11 @@ struct Particle{
     //Move particle in leak simulation
     void move_leak(double size, double step){
 
-        //Check if the particle is out of the container
+        //Check if the particle is out of the container to stop moving
         if (!valid) {
             return;
         }
+
         int direction = rand() % 4;
 
         switch(direction){
