@@ -8,6 +8,8 @@ int main(){
 
     int GridSize = 64;
 
+    double Distancia=0;
+
     particles simul;
     simul.resize(Nmol);
 
@@ -22,15 +24,27 @@ int main(){
 
     std::ofstream outfile;
     outfile.open("entropy.txt");
+    std::ofstream outfile2;
+    outfile2.open("increseEntropy.txt");
+
     for(int t = 0; t < 5000; t++){
 
         outfile << t << "\t" << entropy(Counts, Nmol) << "\n";
 
         update(simul, LatSize);
         grid_count(Counts, simul, LatSize);
-    }
-    outfile.close();
 
+        //Obtener obtener la distancia
+        
+        Distancia=encreaseEntropy(simul);
+        //Se agrega al archivo
+        outfile2 << t << "\t" << Distancia << "\n";
+        
+
+    }
+
+    outfile.close();
+    outfile2.close();
 
     return 0;
 }

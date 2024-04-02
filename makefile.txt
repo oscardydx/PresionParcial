@@ -1,6 +1,6 @@
 SHELL:=/bin/bash
 
-all: entropia_tiempo.png
+all: entropia_tiempo.png entropia_tamaño.png
 
 %.x: %.o entropy.o functions.o
 	g++ $^ -o $@
@@ -14,5 +14,9 @@ all: entropia_tiempo.png
 entropia_tiempo.png: entropy.py entropy.txt
 	python entropy.py
 
+
+entropia_tamaño.png: increaseEntropy.py increseEntropy.txt
+	python increaseEntropy.py
+
 clean:
-	rm -f *.o *.x *.png entropy.txt
+	rm -f *.o *.x *.png entropy.txt increseEntropy.txt
