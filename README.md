@@ -46,3 +46,6 @@ entrpoy_prueba.cpp:
 entropy.py: 
   gráficas y ajustes de los resultados principales de la simulación
 
+tiempos_opt.py:
+  gráficas del tiempo de computo a partir de los datos de entropy_prueba.cpp
+
