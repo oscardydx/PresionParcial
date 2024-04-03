@@ -25,7 +25,7 @@ plt.title('Entropía en función del tiempo')
 plt.grid(True)
 
 # Save plot as a .png file
-plt.savefig('Entropía_tiempo.png')
+plt.savefig('entropia_tiempo.png')
 
 
 #####################################
@@ -104,7 +104,7 @@ plt.legend()
 plt.grid(True)
 
 # Save plot as a .png file
-plt.savefig('counts.png')
+plt.savefig('cuentas_tiempo.png')
 
 
 #####################################
@@ -142,7 +142,7 @@ plt.legend()
 plt.grid(True)
 
 # Save plot as a .png file
-plt.savefig('Tiempo_area.png')
+plt.savefig('tiempo_area.png')
 
 
 ###################

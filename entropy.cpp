@@ -1,17 +1,18 @@
 #include "declarations.h"
 
 int main(){
+
     int Nmol = 500;
-    double LatSize = 100;
-    int Nsteps = 40000;
+    int LatSize = 100;
+    int Nsteps = 20000;
     int SEED = 0;
-    
+
     //# of grids for entropy computaion
     const int GridSize = 64;
     //Step size for random walk
     const double Step = 1.0;
     //Equilibrium entropy for 64 estates
-    const double MaxEntropy = 4.0;
+    const double MaxEntropy = 4.05;
 
 
     //Variables to compute in time
@@ -95,7 +96,7 @@ int main(){
             
             //Check if equilibrium has been reached
             if(Entropy >= MaxEntropy){
-                outfile4 << LatSize_vec[ii] << "\t" << t << "\n";
+                outfile4 << LatSize_vec[ii]*LatSize_vec[ii] << "\t" << t << "\n";
                 break;
             }
 
