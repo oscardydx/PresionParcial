@@ -6,6 +6,7 @@
 #include <ctime>
 #include <random>
 #include <sstream>
+#include <stdio.h>
 #include "particle.h"
 
 typedef std::vector<Particle> particles;
