@@ -11,7 +11,7 @@ test.x: test.o functions.o input.txt
 test: test.x
 	./test.x
 
-%.o: %.cpp
+%.o: %.cpp input.txt
 	g++ -c $<
 
 %.txt: %.x
