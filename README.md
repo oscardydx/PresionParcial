@@ -23,3 +23,13 @@ Tiempo en función del tamaño del sistema:
 
 Limpiar
   make clean
+
+# Archivos
+entropy.cpp: funcion main, se lleva acabo la simulación
+declarations.h: declaración de funciones e incldes
+particle.h: declaración objeto particle
+functions.cpp: Implementación de las funciones para la simulación
+test.cpp: tests con catch2
+entrpoy_prueba.cpp: copia de entropy.cpp para medir el tiempo de ejecución con diferentes parametros
+entropy.py: gráficas y ajustes de los resultados principales de la simulación
+e
