@@ -40,4 +40,4 @@ tamaño_tiempo.png: entropy.py drop_size.txt
 	python entropy.py
 
 clean:
-	rm -f *.o *.x *.out *.png *.txt cachegrind.out.* cachegrind test_gprof memcheck
+	rm -f *.o *.x *.out *.png cachegrind.out.* cachegrind test_gprof memcheck counts.txt drop_size.txt entropy.txt fits.txt latsize.txt gprof-report.txt cachegrind-report.txt

@@ -1,0 +1,4 @@
+500     #nmolecules
+100      #latticesize
+20000 #niterations
+0       #semilla

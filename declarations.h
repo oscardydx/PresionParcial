@@ -7,6 +7,7 @@
 #include <random>
 #include <sstream>
 #include <stdio.h>
+#include <string>
 #include "particle.h"
 
 typedef std::vector<Particle> particles;

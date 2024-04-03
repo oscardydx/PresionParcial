@@ -1,11 +1,60 @@
 #include "declarations.h"
 
 int main(){
+////////////////////// PARTE EXTRAER DEL INPUT
+    std::ifstream inputFile("input.txt"); // Abre el archivo input.txt para lectura
 
-    int Nmol = 500;
-    int LatSize = 100;
-    int Nsteps = 20000;
-    int SEED = 0;
+    if (!inputFile.is_open()) { // Verifica si el archivo se abrió correctamente
+        std::cerr << "Error al abrir el archivo input.txt" << std::endl;
+        return 1; // Retorna 1 para indicar un error
+    }
+
+    std::string line;
+    std::string value;
+
+    int nmolecules, latticesize, niterations, seed;
+
+    for (int i = 0; i < 4; ++i) { // Itera sobre las 4 líneas del archivo
+        std::getline(inputFile, line); // Lee una línea del archivo
+
+        // Utiliza un stringstream para dividir la línea en palabras separadas por espacio
+        std::stringstream ss(line);
+        ss >> value;
+
+        // Extrae el valor numérico y lo almacena en la variable correspondiente
+        switch (i) {
+            case 0: // Primera línea: nmolecules
+                nmolecules = std::stoi(value);
+                break;
+            case 1: // Segunda línea: latticesize
+                latticesize = std::stoi(value);
+                break;
+            case 2: // Tercera línea: niterations
+                niterations = std::stoi(value);
+                break;
+            case 3: // Cuarta línea: seed
+                seed = std::stoi(value);
+                break;
+            default:
+                break;
+        }
+    }
+
+    inputFile.close(); // Cierra el archivo después de leer los valores
+    /*
+    
+    // Imprime los valores extraídos
+    std::cout << "nmolecules: " << nmolecules << std::endl;
+    std::cout << "latticesize: " << latticesize << std::endl;
+    std::cout << "niterations: " << niterations << std::endl;
+    std::cout << "seed: " << seed << std::endl;
+    */
+/////////////////////
+
+    int Nmol = nmolecules;
+    int LatSize = latticesize;
+    int Nsteps = niterations;
+    int SEED = seed;
 
     //# of grids for entropy computaion
     const int GridSize = 64;
@@ -80,7 +129,7 @@ int main(){
     std::ofstream outfile4;
     outfile4.open("latsize.txt");
     // Perform simulation for diferent Lat sizes
-    for(int ii = 0; ii < LatSize_vec.size(); ii++){
+    for(long unsigned int ii = 0; ii < LatSize_vec.size(); ii++){
 
         init(simul, SEED, LatSize_vec[ii]);
         //Time loop
