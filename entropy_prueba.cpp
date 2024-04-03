@@ -1,12 +1,10 @@
 #include "declarations.h"
-#include <time.h>
-#include <cstdlib>
 
 int main(int argc, char* argv[]) {
     clock_t cputime1, cputime2;
     cputime1 = clock();
     
-    if(argc != 3) {
+    if(argc != 4) {
         std::cerr << "Usage: " << argv[0] << " <arg1> <arg2>" << std::endl;
         return 1;
     }
@@ -15,8 +13,9 @@ int main(int argc, char* argv[]) {
     int LatSize = 100;
     int Nsteps = std::atoi(argv[2]);
     int SEED = 0;
-    //std::cout << "Nmol = " << Nmol << std::endl;
 
+    std::string bandera = argv[3];
+    
     //# of grids for entropy computaion
     const int GridSize = 64;
     //Step size for random walk
@@ -89,6 +88,9 @@ int main(int argc, char* argv[]) {
 
     std::ofstream outfile4;
     outfile4.open("latsize.txt");
+
+    
+
     // Perform simulation for diferent Lat sizes
     for(long unsigned int ii = 0; ii < LatSize_vec.size(); ii++){
 
@@ -118,7 +120,12 @@ int main(int argc, char* argv[]) {
     }
     outfile4.close();
     cputime2 = clock() - cputime1;
-    printf("Tiempo que tomo: %f\n", ((double)cputime2)/CLOCKS_PER_SEC);
+       
+    std::ofstream outfile5;
+    outfile5.open("Bandera" + bandera + ".txt", std::ios::app);
+    outfile5 << Nmol <<"\t"<< Nsteps <<"\t"<< ((double)cputime2)/CLOCKS_PER_SEC <<"\n";
+    outfile5.close();
+       
     return 0;
 }
 
