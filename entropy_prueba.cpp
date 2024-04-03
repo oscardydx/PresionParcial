@@ -90,10 +90,9 @@ int main(int argc, char* argv[]) {
     outfile4.open("latsize.txt");
 
     
-
     // Perform simulation for diferent Lat sizes
     for(long unsigned int ii = 0; ii < LatSize_vec.size(); ii++){
-
+        
         init(simul, SEED, LatSize_vec[ii]);
         //Time loop
         for(int t = 0; t < Nsteps; t++){
@@ -123,7 +122,7 @@ int main(int argc, char* argv[]) {
        
     std::ofstream outfile5;
     outfile5.open("Bandera" + bandera + ".txt", std::ios::app);
-    outfile5 << Nmol <<"\t"<< Nsteps <<"\t"<< ((double)cputime2)/CLOCKS_PER_SEC <<"\n";
+    outfile5 << Nmol <<"\t"<< Nsteps <<"\t"<< ((double)cputime2)/CLOCKS_PER_SEC << "\n";
     outfile5.close();
        
     return 0;

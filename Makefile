@@ -3,7 +3,7 @@ SHELL:=/bin/bash
 all: entropia_tiempo.png tamaño_tiempo.png cuentas_tiempo.png tiempo_area.png
 
 %.x: %.o entropy.o functions.o
-	g++ $^ -o $@
+	g++ -fsanitize=address -fsanitize=leak -fsanitize=undefined -O3 $^ -o $@
 
 test.x: test.o functions.o input.txt
 	g++ $$(pkg-config --cflags) $$(pkg-config --libs-only-L catch2) $^ -o $@ -l Catch2Main -l Catch2
@@ -33,11 +33,12 @@ memcheck: entropy.cpp functions.cpp input.txt
 
 tiempos: entropy_prueba.cpp functions.cpp 
 	g++ -O0 entropy_prueba.cpp functions.cpp -o script_O0
-	for nmol in 200 500 1000; do echo "nmol: $$nmol"; ./script_O0 $$nmol 20000 O0; done 
-	for step in 20000 50000 100000; do echo "step: $$step"; ./script_O0 1000 $$step O0; done 
+	for nmol in 200 400 600 800 1000; do echo "nmol: $$nmol"; ./script_O0 $$nmol 20000 O0; done 
+	for step in 20000 40000 60000 80000 100000; do echo "step: $$step"; ./script_O0 1000 $$step O0; done 
 	g++ -O3 entropy_prueba.cpp functions.cpp -o script_O3
-	for nmol in 200 500 1000; do echo "nmol: $$nmol"; ./script_O3 $$nmol 20000 O3; done 
-	for step in 20000 50000 100000; do echo "step: $$step"; ./script_O3 1000 $$step O3; done 
+	for nmol in 200 400 600 800 1000; do echo "nmol: $$nmol"; ./script_O3 $$nmol 20000 O3; done 
+	for step in 20000 40000 60000 80000 100000; do echo "step: $$step"; ./script_O3 1000 $$step O3; done
+	python tiempos_opt.py
 
 entropia_tiempo.png: entropy.py entropy.txt
 	python entropy.py
