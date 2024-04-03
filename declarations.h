@@ -12,9 +12,6 @@
 #include <cstdlib>
 #include "particle.h"
 
-
-
-
 typedef std::vector<Particle> particles;
 
 void init(particles & position, int seed, double limit);

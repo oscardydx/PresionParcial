@@ -2,9 +2,9 @@
 
 int main(){
 ////////////////////// PARTE EXTRAER DEL INPUT
-    std::ifstream inputFile("input.txt"); // Abre el archivo input.txt para lectura
+    std::ifstream inputFile("input.txt"); 
 
-    if (!inputFile.is_open()) { // Verifica si el archivo se abrió correctamente
+    if (!inputFile.is_open()) {
         std::cerr << "Error al abrir el archivo input.txt" << std::endl;
         return 1; // Retorna 1 para indicar un error
     }
@@ -12,7 +12,8 @@ int main(){
     std::string line;
     std::string value;
 
-    int nmolecules, latticesize, niterations, seed;
+    int Nmol, Nsteps, SEED;
+    double LatSize;
 
     for (int i = 0; i < 4; ++i) { // Itera sobre las 4 líneas del archivo
         std::getline(inputFile, line); // Lee una línea del archivo
@@ -23,17 +24,17 @@ int main(){
 
         // Extrae el valor numérico y lo almacena en la variable correspondiente
         switch (i) {
-            case 0: // Primera línea: nmolecules
-                nmolecules = std::stoi(value);
+            case 0: // Primera línea: Nmol
+                Nmol = std::stoi(value);
                 break;
-            case 1: // Segunda línea: latticesize
-                latticesize = std::stoi(value);
+            case 1: // Segunda línea: LatSize
+                LatSize = std::stof(value);
                 break;
-            case 2: // Tercera línea: niterations
-                niterations = std::stoi(value);
+            case 2: // Tercera línea: Nsteps
+                Nsteps = std::stoi(value);
                 break;
-            case 3: // Cuarta línea: seed
-                seed = std::stoi(value);
+            case 3: // Cuarta línea: SEED
+                SEED = std::stoi(value);
                 break;
             default:
                 break;
@@ -41,20 +42,6 @@ int main(){
     }
 
     inputFile.close(); // Cierra el archivo después de leer los valores
-    /*
-    
-    // Imprime los valores extraídos
-    std::cout << "nmolecules: " << nmolecules << std::endl;
-    std::cout << "latticesize: " << latticesize << std::endl;
-    std::cout << "niterations: " << niterations << std::endl;
-    std::cout << "seed: " << seed << std::endl;
-    */
-/////////////////////
-
-    int Nmol = nmolecules;
-    int LatSize = latticesize;
-    int Nsteps = niterations;
-    int SEED = seed;
 
     //# of grids for entropy computaion
     const int GridSize = 64;
@@ -80,7 +67,7 @@ int main(){
     //1D matrix for grid count
     std::vector<int> Counts(GridSize);
 
-    //Random seed for random walk 
+    //Random SEED for random walk 
     srand(time(NULL));
 
     //Initialize particles 
